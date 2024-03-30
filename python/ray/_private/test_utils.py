@@ -1393,7 +1393,7 @@ def monitor_memory_usage(
     return memory_monitor_actor
 
 
-def setup_tls():
+def setup_tls(require_client_auth=True):
     """Sets up required environment variables for tls"""
     import pytest
 
@@ -1412,6 +1412,9 @@ def setup_tls():
     os.environ["RAY_TLS_SERVER_CERT"] = cert_filepath
     os.environ["RAY_TLS_SERVER_KEY"] = key_filepath
     os.environ["RAY_TLS_CA_CERT"] = cert_filepath
+
+    if require_client_auth:
+        os.environ["RAY_TLS_CLIENT_AUTH"] = "1"
 
     return key_filepath, cert_filepath, temp_dir
 

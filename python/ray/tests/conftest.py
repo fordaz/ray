@@ -17,7 +17,6 @@ from typing import List, Tuple
 from unittest import mock
 import psutil
 import pytest
-
 import ray
 import ray._private.ray_constants as ray_constants
 from ray._private.conftest_utils import set_override_dashboard_url  # noqa: F401
@@ -758,10 +757,11 @@ def log_pubsub():
 
 @pytest.fixture
 def use_tls(request):
-    if request.param:
-        key_filepath, cert_filepath, temp_dir = setup_tls()
+    use_tls, require_client_auth = request.param
+    if use_tls:
+        key_filepath, cert_filepath, temp_dir = setup_tls(require_client_auth)
     yield request.param
-    if request.param:
+    if use_tls:
         teardown_tls(key_filepath, cert_filepath, temp_dir)
 
 

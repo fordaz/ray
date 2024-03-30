@@ -23,7 +23,7 @@ def build_env():
     sys.platform == "darwin",
     reason=("Cryptography (TLS dependency) doesn't install in Mac build pipeline"),
 )
-@pytest.mark.parametrize("use_tls", [True], indirect=True)
+@pytest.mark.parametrize("use_tls", [(True, True), (True, False)], indirect=True)
 def test_init_with_tls(use_tls):
     # Run as a new process to pick up environment variables set
     # in the use_tls fixture
@@ -43,7 +43,7 @@ finally:
     sys.platform == "darwin",
     reason=("Cryptography (TLS dependency) doesn't install in Mac build pipeline"),
 )
-@pytest.mark.parametrize("use_tls", [True], indirect=True)
+@pytest.mark.parametrize("use_tls", [(True, True), (True, False)], indirect=True)
 def test_put_get_with_tls(use_tls):
     run_string_as_driver(
         """
@@ -84,7 +84,7 @@ finally:
     sys.platform == "darwin",
     reason=("Cryptography (TLS dependency) doesn't install in Mac build pipeline"),
 )
-@pytest.mark.parametrize("use_tls", [True], indirect=True, scope="module")
+@pytest.mark.parametrize("use_tls", [(True, True), (True, False)], indirect=True, scope="module")
 def test_submit_with_tls(use_tls):
     run_string_as_driver(
         """
@@ -122,7 +122,7 @@ assert ray.get([id1, id2, id3, id4]) == [0, 1, "test", 2]
     sys.platform == "darwin",
     reason=("Cryptography (TLS dependency) doesn't install in Mac build pipeline"),
 )
-@pytest.mark.parametrize("use_tls", [True], indirect=True)
+@pytest.mark.parametrize("use_tls", [(True, True), (True, False)], indirect=True)
 def test_client_connect_to_tls_server(use_tls, call_ray_start):
     tls_env = build_env()  # use_tls fixture sets TLS environment variables
     without_tls_env = {k: v for k, v in tls_env.items() if "TLS" not in k}
