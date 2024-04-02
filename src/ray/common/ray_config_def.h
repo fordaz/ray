@@ -813,6 +813,8 @@ RAY_CONFIG(std::string, external_storage_namespace, "default")
 
 /// Whether or not use TLS.
 RAY_CONFIG(bool, USE_TLS, false)
+/// Whether or not TLS client authentication is required
+RAY_CONFIG(bool, RAY_TLS_CLIENT_AUTH, false)
 
 /// Location of TLS credentials
 RAY_CONFIG(std::string, TLS_SERVER_CERT, "")
