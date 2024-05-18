@@ -1,5 +1,4 @@
-ARG BASE_IMAGE
-ARG FULL_BASE_IMAGE=rayproject/ray:nightly"$BASE_IMAGE"
+ARG FULL_BASE_IMAGE=rayproject/ray:fordaz
 FROM "$FULL_BASE_IMAGE"
 
 # The python/* paths only exist in civ2, so we put them as non-first arguments. Docker

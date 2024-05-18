@@ -103,14 +103,6 @@ ray_cc_test(
     ],
 )
 
-cc_binary(
-    name = "syncer_service_e2e_test",
-    srcs = ["syncer_service_e2e_test.cc"],
-    deps = [
-        "//src/ray/common:ray_syncer",
-    ],
-)
-
 ray_cc_test(
     name = "task_spec_test",
     srcs = ["task_spec_test.cc"],

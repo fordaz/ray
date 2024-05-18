@@ -57,6 +57,10 @@ void GrpcServer::Shutdown() {
   }
 }
 
+void GrpcServer::FordazMethod() {
+
+}
+
 void GrpcServer::Run() {
   uint32_t specified_port = port_;
   std::string server_address((listen_to_localhost_only_ ? "127.0.0.1:" : "0.0.0.0:") +
@@ -96,6 +100,7 @@ void GrpcServer::Run() {
             ? GRPC_SSL_REQUEST_AND_REQUIRE_CLIENT_CERTIFICATE_AND_VERIFY
             : GRPC_SSL_DONT_REQUEST_CLIENT_CERTIFICATE;
 
+    RAY_LOG(INFO) << "FODEBUG: Is cpp client auth enabled ? " << request_type;
     grpc::SslServerCredentialsOptions ssl_opts =
         grpc::SslServerCredentialsOptions(request_type);
     ssl_opts.pem_root_certs = rootcert;
@@ -133,7 +138,7 @@ void GrpcServer::Run() {
       << "Try running sudo lsof -i :" << specified_port
       << " to check if there are other processes listening to the port.";
   RAY_CHECK(port_ > 0);
-  RAY_LOG(INFO) << name_ << " server started, listening on port " << port_ << ".";
+  RAY_LOG(INFO) << name_ << " server started FODEBUG, listening on port " << port_ << ".";
 
   // Create calls for all the server call factories.
   for (auto &entry : server_call_factories_) {

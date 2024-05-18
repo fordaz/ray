@@ -1,7 +1,9 @@
 import datetime
 import os
 import socket
+import logging
 
+logger = logging.getLogger(__name__)
 
 def generate_self_signed_tls_certs():
     """Create self-signed key/cert pair for testing.
@@ -68,10 +70,10 @@ def generate_self_signed_tls_certs():
 def add_port_to_grpc_server(server, address):
     import grpc
 
-    require_client_auth = os.environ.get("RAY_TLS_CLIENT_AUTH", "0").lower() in ("1", "true")
-
     if os.environ.get("RAY_USE_TLS", "0").lower() in ("1", "true"):
         server_cert_chain, private_key, ca_cert = load_certs_from_env()
+        require_client_auth = os.environ.get("RAY_TLS_CLIENT_AUTH", "0").lower() in ("1", "true")
+        logger.info(f"FODEBUG: Is Client auth enabled ? {require_client_auth}")
         credentials = grpc.ssl_server_credentials(
             [(private_key, server_cert_chain)],
             root_certificates=ca_cert,

@@ -112,6 +112,8 @@ class GrpcServer {
   /// Initialize and run this server.
   void Run();
 
+  void FordazMethod();
+
   // Shutdown this server
   void Shutdown();
 

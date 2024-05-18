@@ -1,11 +1,11 @@
-ARG BASE_IMAGE=""
-FROM rayproject/base-deps:nightly"$BASE_IMAGE"
+FROM rayproject/base-deps:fordaz
 # If this arg is not "autoscaler" then no autoscaler requirements will be included
 ARG AUTOSCALER="autoscaler"
+
 ARG WHEEL_PATH
 ARG FIND_LINKS_PATH=".whl"
 COPY $WHEEL_PATH .
-COPY $FIND_LINKS_PATH $FIND_LINKS_PATH
+
 RUN $HOME/anaconda3/bin/pip --no-cache-dir install --find-links $FIND_LINKS_PATH \
     $(basename $WHEEL_PATH)[all] \
     $(if [ "$AUTOSCALER" = "autoscaler" ]; then echo \
